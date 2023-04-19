@@ -1,0 +1,23 @@
+{
+  "name": "plataforma_comentarios_nodejs",
+  "version": "1.0.0",
+  "description": "plataforma de comentarios",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LenoXbrs/plataforma_comentarios_nodejs.git"
+  },
+  "author": "Luis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LenoXbrs/plataforma_comentarios_nodejs/issues"
+  },
+  "homepage": "https://github.com/LenoXbrs/plataforma_comentarios_nodejs#readme",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2"
+  }
+}
