@@ -11,21 +11,26 @@
     <hr>
     <h3>Lista de comentarios</h3>
 
+    <!--variaveis-->
     <ul>
         <li>Nome: <%= nome %></li>
-    </ul>
-    <ul>
         <li>Linguagem: <%= lang %></li>
-    </ul>
-    <ul>
         <li>Empresa:  <%= empresa %></li>
-    </ul>
-    <ul>
         <li>Inscritos:  <%= inscritos %></li>
     </ul>
     
-  
-   
-   
+    <!--IF-->
+        <% if(!msg){%>
+            <h3>Isso é uma mensagem de erro</h3>
+            <%} else {%>
+                <h3>nenhum erro</h3>
+                <%}%>
+    
+  <!--foreach-->
+  <% produtos.forEach(function(produto){ %>
+    
+       <%= produto.nome %>
+       <%= produto.preco %>
+    <%})%>
 </body>
 </html>
