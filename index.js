@@ -2,8 +2,16 @@ const express = require('express');
 
 const app = express();
 
+app.use(express.urlencoded({ extended: true })); 
+app.use(express.json());
+
+
+
 app.set('view engine','ejs');
 app.use(express.static('public')) //carregar css
+
+
+
 
 app.get("/",(req,res)=> {
   
@@ -18,7 +26,9 @@ app.get('/comentar',(req,res)=>{
 
 //usado no formulario
 app.post('/salvarpergunta',(req,res)=>{
-    res.send("Formulario acessou /salvarpergunta")
+    var titulo = req.body.titulo; // body parser disponibiliza esse .body
+    var descricao = req.body.descricao;
+    res.send("Formulario recebido! Titulo " + titulo +" Descricao "+ descricao )
 })
 
 
