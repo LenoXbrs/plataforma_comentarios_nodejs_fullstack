@@ -4,13 +4,20 @@ const app = express();
 
 app.set('view engine','ejs');
 
-app.get("/comentarios",(req,res)=> {
-    res.render("index")
+app.get("/",(req,res)=> {
+    var inscritos = 8000;
+    var nome = "Luis";
+    var lang = "Java";
+    
+
+    res.render("index",{
+        nome: nome,
+        lang: lang,
+        empresa: "Savage Code",
+        inscritos: inscritos ,
+    })
 })
 
-app.get("/login",(req,res)=> {
-    res.render("login-page")
-})
 
 
 app.listen(8080,()=>{
