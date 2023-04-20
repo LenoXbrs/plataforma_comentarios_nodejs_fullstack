@@ -18,7 +18,7 @@ app.get('/comentar',(req,res)=>{
 
 //usado no formulario
 app.post('/salvarpergunta',(req,res)=>{
-
+    res.send("Formulario acessou /salvarpergunta")
 })
 
 
