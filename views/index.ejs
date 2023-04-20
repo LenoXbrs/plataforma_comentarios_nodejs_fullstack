@@ -1,36 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comentarios</title>
-</head>
+<%- include ('partials/header.ejs') %>
 <body>
+    
+<%- include ('partials/navbar.ejs') %>
     <h1>Comentarios</h1>
     <hr>
     <h3>Lista de comentarios</h3>
 
-    <!--variaveis-->
-    <ul>
-        <li>Nome: <%= nome %></li>
-        <li>Linguagem: <%= lang %></li>
-        <li>Empresa:  <%= empresa %></li>
-        <li>Inscritos:  <%= inscritos %></li>
-    </ul>
-    
-    <!--IF-->
-        <% if(!msg){%>
-            <h3>Isso é uma mensagem de erro</h3>
-            <%} else {%>
-                <h3>nenhum erro</h3>
-                <%}%>
-    
-  <!--foreach-->
-  <% produtos.forEach(function(produto){ %>
-    
-       <%= produto.nome %>
-       <%= produto.preco %>
-    <%})%>
 </body>
-</html>
+<%- include ('partials/footer.ejs') %>
