@@ -28,7 +28,11 @@ app.get('/comentar',(req,res)=>{
 app.post('/salvarpergunta',(req,res)=>{
     var titulo = req.body.titulo; // body parser disponibiliza esse .body
     var descricao = req.body.descricao;
-    res.send("Formulario recebido! Titulo " + titulo +" Descricao "+ descricao )
+    // res.send("Formulario recebido! Titulo " + titulo +" Descricao "+ descricao )
+    res.json({
+        titulo: titulo,
+        descricao: descricao
+    })
 })
 
 
