@@ -1,15 +1,15 @@
 const express = require('express');
 const app = express();
 //conectando com banco
-const connection = require('./database/database')
-const perguntaModel = require('./database/Pergunta')
+const connection = require('./database/database');
+const Pergunta = require('./database/Pergunta');
 
 
 //database
 connection.authenticate().then(()=>{
-    console.log("Conexao realizada com sucesso!")
+    console.log("Conexao realizada com sucesso!");
 }).catch((msgErro)=>{
-    console.log("Conexao falhou!")
+    console.log("Conexao falhou!");
 });
 
 
@@ -17,34 +17,42 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.set('view engine','ejs');
-app.use(express.static('public')) //carregar css
+app.use(express.static('public')); //carregar css
 
 
 
 
 app.get("/",(req,res)=> {
   
-    res.render('index')
+    res.render('index');
 
 })
 
 
 app.get('/comentar',(req,res)=>{
-    res.render('comentar')
+    res.render('comentar');
 })
 
 //usado no formulario
 app.post('/salvarpergunta',(req,res)=>{
     var titulo = req.body.titulo; // body parser disponibiliza esse .body
     var descricao = req.body.descricao;
-    // res.send("Formulario recebido! Titulo " + titulo +" Descricao "+ descricao )
-    res.json({
+
+    Pergunta.create({
         titulo: titulo,
-        descricao: descricao
-    })
+        descricao: descricao,
+    }).then(()=>{
+        //mudar a tela onde a pessoa esta para outra !!!IMPORTANTE!!!
+       
+        res.redirect('/');
+    });
+    
+    
+    // res.send("Formulario recebido! Titulo " + titulo +" Descricao "+ descricao );
+  //  res.json({ titulo: titulo,descricao: descricao});
 })
 
 
 app.listen(8080,()=>{
-    console.log("App rodando!")
+    console.log("App rodando!");
 });
