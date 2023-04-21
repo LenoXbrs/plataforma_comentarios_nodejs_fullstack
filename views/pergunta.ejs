@@ -12,12 +12,27 @@
         <p><%= pergunta.descricao %></p>
         <hr>
           
-        <form action="">
+        <form  method="POST" action="/responder">
             <h3 class="mb-3">Responda</h3>
             <textarea name="corpo" placeholder="Digite sua resposta" class="form-control mb-2"></textarea>
+            <!--carregar id da pergunta-->
+            <input type="hidden" name="perguntaId" value="<%= pergunta.id %>">
             <button type="submit" class="btn btn-primary">Responder</button>
+          
         </form>
     
+        <hr>
+        <h3>Respostas</h3>
+
+        <% resposta.forEach(function(respostas){ %>
+    
+           <div class="card mb-3">
+            <div class="card-body">
+                <p> <%= respostas.corpo %></p>
+            </div>
+           </div>
+            
+         <%})%>
     </div>
    
 </body>
