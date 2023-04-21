@@ -3,7 +3,7 @@ const app = express();
 //conectando com banco
 const connection = require('./database/database');
 const Pergunta = require('./database/Pergunta');
-
+const Resposta = require('./database/Resposta')
 
 //database
 connection.authenticate().then(()=>{
