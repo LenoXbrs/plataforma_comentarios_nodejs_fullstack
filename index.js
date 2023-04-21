@@ -1,44 +1,102 @@
 const express = require('express');
-
 const app = express();
+//conectando com banco
+const connection = require('./database/database');
+const Pergunta = require('./database/Pergunta');
+const Resposta = require('./database/Resposta')
+
+//database
+connection.authenticate().then(()=>{
+    console.log("Conexao realizada com sucesso!");
+}).catch((msgErro)=>{
+    console.log("Conexao falhou!");
+});
+
+
+app.use(express.urlencoded({ extended: true })); 
+app.use(express.json());
 
 app.set('view engine','ejs');
-app.use(express.static('public')) //carregar css
+app.use(express.static('public')); //carregar css
 
-app.get("/:nome/:lang",(req,res)=> {
-  
-    var nome = req.params.nome;
-    var lang = req.params.lang;
-    var exibirMsg = true;
 
-    var produtos = [
-    {nome: "doritos", preco: 5.14,},
-    {nome: "coca-cola",preco:11.50,},
-    { nome:"Leite",preco: 6.29,}
-    ]
-    
 
-    res.render("index",{
-        nome: nome,
-        lang: lang,
-        empresa: "Savage Code",
-        inscritos: 8000 ,
-        msg : exibirMsg,
-        produtos : produtos
+//buscando objetos no banco com o sequelize 
+app.get("/",(req,res)=> {
+    //raw true é para trazer apaenas o objeto, order: primeiro valor nome do campo e 0 2 se vai ser asc ou desc
+    Pergunta.findAll({raw: true,order:[['id','DESC']]}).then(perguntas => {
+        console.log(perguntas)
+        res.render('index',{
+            pergunta: perguntas
+        });
     })
-})
-
-
-app.get('/login',(req,res)=>{
-
-
-    res.render('login-page')
+  
 
 })
 
 
+app.get('/comentar',(req,res)=>{
+    res.render('comentar');
+})
+
+//o formulario faz um requisição post e manda os dados para esse endpoint, onde eu recebo esses dados e coloco em uma entity que sera grvada no banco 
+app.post('/salvarpergunta',(req,res)=>{
+    var titulo = req.body.titulo; 
+    var descricao = req.body.descricao;
+
+    Pergunta.create({
+        titulo: titulo,
+        descricao: descricao,
+    }).then(()=>{
+        //mudar a tela onde a pessoa esta para outra !!!IMPORTANTE!!!
+       
+        res.redirect('/');
+    });
+    
+    
+    // res.send("Formulario recebido! Titulo " + titulo +" Descricao "+ descricao );
+  //  res.json({ titulo: titulo,descricao: descricao});
+})
+
+
+app.get('/pergunta/:id',(req,res)=>{
+    var id = req.params.id;
+    Pergunta.findOne({
+        where: {id: id}
+    }).then(pergunta =>{
+        if(pergunta != undefined){
+            //buscar respostas
+            Resposta.findAll({order:[['id','DESC']]},{
+                where: {perguntaId:pergunta.id}
+            }).then(resposta=>{
+                res.render('pergunta',{
+                    pergunta: pergunta,
+                    resposta: resposta
+                 })
+            })
+
+           
+        }else{
+            res.redirect('/');
+        }
+    })
+});
+
+
+app.post("/responder",(req,res)=>{
+    var corpo = req.body.corpo;
+    var perguntaId = req.body.perguntaId;
+
+    Resposta.create({
+        corpo: corpo,
+        perguntaId: perguntaId,
+    }).then(()=>{
+        res.redirect('/pergunta/' + perguntaId);
+    });
+
+})
 
 
 app.listen(8080,()=>{
-    console.log("App rodando!")
+    console.log("App rodando!");
 });

@@ -1,36 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comentarios</title>
-</head>
+<%- include ('partials/header.ejs') %>
 <body>
-    <h1>Comentarios</h1>
-    <hr>
-    <h3>Lista de comentarios</h3>
+    
+<%- include ('partials/navbar.ejs') %>
+    
+   
+    
+    <div class="container">
+        <h1 class="text-center mt-5 mb-5">Comentarios</h1>
 
-    <!--variaveis-->
-    <ul>
-        <li>Nome: <%= nome %></li>
-        <li>Linguagem: <%= lang %></li>
-        <li>Empresa:  <%= empresa %></li>
-        <li>Inscritos:  <%= inscritos %></li>
-    </ul>
+        <a class="btn btn-primary mb-4" href="/comentar">Fazer pergunta</a>
+
+        <% pergunta.forEach(pergunta =>{ %>
     
-    <!--IF-->
-        <% if(!msg){%>
-            <h3>Isso é uma mensagem de erro</h3>
-            <%} else {%>
-                <h3>nenhum erro</h3>
-                <%}%>
+            <div class="card mb-5">
+                <div class="card-body">
+                    <p><%= pergunta.titulo %></p> 
+                </div>
+                <div class="card-footer">
+                   <a href="/pergunta/<%= pergunta.id %>"  > <button class="btn btn-primary" >Responder</button> </a>
+                </div>
+            </div>
+
+          
+          
+         <%})%>
     
-  <!--foreach-->
-  <% produtos.forEach(function(produto){ %>
-    
-       <%= produto.nome %>
-       <%= produto.preco %>
-    <%})%>
+    </div>
+   
 </body>
-</html>
+<%- include ('partials/footer.ejs') %>
