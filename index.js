@@ -21,10 +21,16 @@ app.use(express.static('public')); //carregar css
 
 
 
-
+//buscando objetos no banco com o sequelize 
 app.get("/",(req,res)=> {
+    //raw true é para trazer apaenas o objeto, order: primeiro valor nome do campo e 0 2 se vai ser asc ou desc
+    Pergunta.findAll({raw: true,order:[['id','DESC']]}).then(perguntas => {
+        console.log(perguntas)
+        res.render('index',{
+            pergunta: perguntas
+        });
+    })
   
-    res.render('index');
 
 })
 
@@ -33,9 +39,9 @@ app.get('/comentar',(req,res)=>{
     res.render('comentar');
 })
 
-//usado no formulario
+//o formulario faz um requisição post e manda os dados para esse endpoint, onde eu recebo esses dados e coloco em uma entity que sera grvada no banco 
 app.post('/salvarpergunta',(req,res)=>{
-    var titulo = req.body.titulo; // body parser disponibiliza esse .body
+    var titulo = req.body.titulo; 
     var descricao = req.body.descricao;
 
     Pergunta.create({
