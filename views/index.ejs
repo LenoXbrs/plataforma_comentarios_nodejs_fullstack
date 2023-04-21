@@ -2,9 +2,30 @@
 <body>
     
 <%- include ('partials/navbar.ejs') %>
-    <h1>Comentarios</h1>
-    <hr>
-    <h3>Lista de comentarios</h3>
+    
+   
+    
+    <div class="container">
+        <h1 class="text-center mt-5 mb-5">Comentarios</h1>
 
+        <a class="btn btn-primary mb-4" href="/comentar">Fazer pergunta</a>
+
+        <% pergunta.forEach(pergunta =>{ %>
+    
+            <div class="card mb-5">
+                <div class="card-body">
+                    <p><%= pergunta.titulo %></p> 
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary">Responder</button>
+                </div>
+            </div>
+
+          
+          
+         <%})%>
+    
+    </div>
+   
 </body>
 <%- include ('partials/footer.ejs') %>
