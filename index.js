@@ -1,11 +1,20 @@
 const express = require('express');
-
 const app = express();
+//conectando com banco
+const connection = require('./database/database')
+const perguntaModel = require('./database/Pergunta')
+
+
+//database
+connection.authenticate().then(()=>{
+    console.log("Conexao realizada com sucesso!")
+}).catch((msgErro)=>{
+    console.log("Conexao falhou!")
+});
+
 
 app.use(express.urlencoded({ extended: true })); 
 app.use(express.json());
-
-
 
 app.set('view engine','ejs');
 app.use(express.static('public')) //carregar css
